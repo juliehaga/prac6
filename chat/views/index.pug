@@ -2,7 +2,9 @@ extends layout
 
 block content
   h1= title
-  form#message-entry(method="post", action='/messages')
+
+
+  form#message-entry(method="post", action='javascript:sendFormContent()')
     div.input
       span.label User Name
       input(type="text", name="user")
@@ -11,3 +13,36 @@ block content
       input(type="text", name="text")
     div.actions
       input(type="submit")
+
+  h2 Messages
+  div
+    table#messages
+  script(src="https://code.jquery.com/jquery-3.1.1.min.js")
+  script.
+    onload = function conversation() {
+        $.get('/messages', function (data) {
+            readMsg(data);
+        });
+    }
+    function sendFormContent() {
+        let form = $('#message-entry');
+        let query = form.serialize();
+        $.post('/messages', query, function (data) {
+            readMsg(data);
+        });
+    }
+    function readMsg(data) {
+        for (let i = 0; i < data.length; i++) {
+            let msg = data[i];
+            let output = '<tr class="msg">';
+            output += '<td class="name"><b>' + msg.user
+                + '@' + msg.ip + '</b></td>';
+
+            output += '<td class="text">' + msg.text
+                + '</td>';
+            output += '<td class="time"><i>'
+                + msg.timestamp + '</i></td>';
+            output += '</tr>';
+            $("#messages").prepend(output);
+        }
+    }

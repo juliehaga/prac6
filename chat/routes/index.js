@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 let conversation = [];
+
+let lastSeen = new Date();
 conversation.push("woof"); 
 
 /* GET home page. */
@@ -10,7 +12,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/messages', function(req, res) {
-  res.json(conversation); 
+  console.log("****************Get request****************");
+  let newMessages = [];
+
+  for (let i = 0; i < conversation.length; i++) {
+      if(conversation[i].timestamp > lastSeen){
+        newMessages.push(conversation[i]);
+      }
+  }
+  res.json(newMessages);
+  lastSeen = new Date();
 });
 
 router.post('/messages', function(req, res) {
