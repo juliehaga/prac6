@@ -14,15 +14,14 @@ router.get('/messages', function(req, res) {
 });
 
 router.post('/messages', function(req, res) {
-  let message = {
-    ip: req.ip, 
-    timestamp: new Date(), 
-    user:req.param('user'),
-    text: req.param('text')
-  }
-  conversation.push(message); 
-  res.json(message);
+    let message = {
+        ip: req.ip,
+        timestamp: new Date(),
+        user: req.param('user'),
+        text: req.param('text')
+    }
+    conversation.push(message);
+    res.json(message);
 });
-
 
 module.exports = router;

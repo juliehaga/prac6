@@ -2,7 +2,25 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
 a {
   color: #00B7FF;
+}
+#messages{
+  width:100%;
+}
+td{
+  padding-bottom: 10px;
+  vertical-align:top;
+}
+.name{
+  max-width:40px;
+  word-wrap: break-word;
+}
+.time{
+  width: 200px;
+}
+form{
+  color:white;
+  background-color:darkolivegreen;
+  padding:10px;
 }
